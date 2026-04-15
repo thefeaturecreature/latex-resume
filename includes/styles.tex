@@ -1,0 +1,73 @@
+% ================== Fonts ==================
+\usepackage{fontspec}
+\setmainfont{Raleway}
+
+\usepackage{xcolor}
+\definecolor{seventygray}{gray}{0.4}
+\providecommand{\grayt}[1]{\textcolor{seventygray}{#1}}
+% ================== Helpers ==================
+\providecommand{\sectiontitle}[1]{%
+  \grayt{\MakeUppercase{\textbf{#1}}}%
+  \vspace{2pt}\par}
+
+\PassOptionsToPackage{warnings-off={mathtools-overbracket,mathtools-colon}}{unicode-math}
+\usepackage{logix}
+\usepackage{enumitem}
+\providecommand{\bullets}[1]{%
+  \begin{itemize}[
+    itemsep=-2pt,
+    topsep=0pt,
+    leftmargin=1.8em,
+    label=\ForComp]
+    #1
+  \end{itemize}
+  \vspace{8pt}
+}
+\providecommand{\citem}[2]{
+  \item \textbf{#1:} #2}
+
+
+% ================== Proficiencies Formatting =================
+  \providecommand{\proficiency}[1]{%
+  \textbf{#1}\par}
+
+  \providecommand{\profdesc}[1]{#1%
+  \vspace{6pt}}
+
+  \newcommand{\profblock}[2]{%
+    \proficiency{\directlua{tex.print(proficiencies["#1"].name)}}%
+    \profdesc{\directlua{tex.print(proficiencies["#1"].description)}}%
+    \bullets{\directlua{renderItems(proficiencies["#1"].items, "#2")}}%
+  }
+% ================= Experience Formatting =================
+\providecommand{\jobtitle}[1]{%
+  \vspace{6pt}%
+  \textbf{#1}}
+
+\providecommand{\company}[1]{%
+  \textbf{#1}}
+
+\providecommand{\location}[1]{(#1)}
+
+\providecommand{\dates}[2]{%
+  \hfill{#1} - {#2}\par}
+
+\providecommand{\desc}[1]{- #1%
+  \vspace{6pt}\par}
+\providecommand{\body}[1]{%
+  #1\vspace{4pt}\par}
+
+\newcommand{\expblock}[2][]{%
+  \jobtitle{\directlua{tex.print(experiences["#2"].title)}}%
+  \dates{\directlua{tex.print(experiences["#2"].dateStart)}}{\directlua{tex.print(experiences["#2"].dateEnd)}}%
+  \company{\directlua{tex.print(experiences["#2"].company)}} \location{\directlua{tex.print(experiences["#2"].location)}} \desc{\directlua{tex.print(experiences["#2"].desc)}}%
+  \body{\directlua{tex.print(experiences["#2"].body)}}%
+  \ifx&#1&\else\bullets{\directlua{renderBullets(experiences["#2"].bullets, "#1")}}\fi%
+}
+
+% ================== Education Formatting ==================
+\providecommand{\school}[1]{%
+  \textbf{#1}}
+
+\providecommand{\degree}[1]{%
+  \hfill{#1}}

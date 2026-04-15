@@ -1,0 +1,23 @@
+\providecommand{\lv}[1]{\directlua{tex.print(#1)}}
+\begin{luacode}
+  local f = kpse.find_file('../data/contact.lua')
+  if f then dofile(f) else tex.print('ERROR: contact.lua not found') end
+\end{luacode}
+\begin{minipage}[b]{0.55\textwidth}
+  {\fontsize{23pt}{10pt}\selectfont \lv{contact.name}}\\[3pt]
+\sectiontitle{\fontsize{11pt}{11pt}\selectfont \lv{contact.title}}
+\end{minipage}%
+\hfill
+\begin{minipage}[b]{0.4\textwidth}
+  \begin{flushright}
+    {\fontsize{10pt}{12pt}\selectfont
+    \lv{contact.email}\\
+    \lv{contact.location}\\
+    \lv{contact.phone}\\
+    \lv{contact.linkedin}\\
+    }
+  \end{flushright}
+\end{minipage}
+\vspace{8pt}
+\hrule
+\vspace{10pt}

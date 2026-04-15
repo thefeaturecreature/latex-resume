@@ -1,0 +1,9 @@
+source "$(dirname "$0")/data/config.sh" 2>/dev/null || { RESUME_OWNER_NAME="Resume Owner"; RESUME_OWNER_TITLE="Product Manager"; }
+rm -f resumes/*.log resumes/*.aux resumes/*.gz resumes/*.fdb_latexmk resumes/*.fls
+for f in resumes/*resume-*.pdf; do
+  [ -f "$f" ] || continue
+  base="${f#resumes/}"; base="${base%.pdf}"
+  python3 web/generate_md.py "$base"
+  mv "$f" "${RESUME_OWNER_NAME} - ${RESUME_OWNER_TITLE} - Resume - ${base#*resume-}.pdf"
+done
+for f in resumes/*.md resumes/*.docx; do [ -f "$f" ] && mv "$f" "${f#resumes/}"; done

@@ -1,0 +1,72 @@
+% !TEX program = lualatex
+
+\documentclass[letterpaper]{article}
+\usepackage{luacode}
+\input {../includes/uselua}
+\input {../includes/uselua-bullets}
+
+% ================== Style ==================
+\usepackage[utf8]{}
+\usepackage[top=0.5in, bottom=0.5in, left=0.7in, right=0.7in]{geometry}
+\raggedright
+\raggedbottom
+\pagestyle{empty}
+
+% ================== Style Overrides ==================
+\providecommand{\bullets}[1]{%
+  \begin{itemize}[
+    itemsep=-2pt,
+    topsep=0pt,
+    leftmargin=1.8em,
+    label=\ForComp]
+    #1
+  \end{itemize}
+  \vspace{6pt}
+}
+\providecommand{\jobtitle}[1]{%
+  \vspace{3pt}%
+  \textbf{#1}}
+\providecommand{\desc}[1]{- #1%
+  \vspace{3pt}\par}
+
+\input {../includes/styles} % load default styles and formatting
+
+% ================== Load Blocks ==================
+\input {../includes/education} % load education block
+
+% ================== Document ==================
+\begin{document}
+\fontsize{10pt}{13pt}\selectfont
+
+% ================== Page Header ==================
+\input {../includes/header}
+
+% ================== Page Proficiencies ==================
+\vspace{2pt}\par
+\sectiontitle{Proficiencies}
+\vspace{2pt}\par
+\propmCmsQ[1,3,4]
+\propmAnalyticsQ[1,6]
+\propmExperimentQ[2,4,5]
+\propmPrototypingQ[4,1,2]
+\propmVoCQ[1,2]
+\newpage % =============== Page Break ===============
+\propmApiQ[1,2]
+\propmAiQ[1,2,4]
+\propmMlQ[1,2,3]
+
+% ================== Page Experience ==================
+\vspace{2pt}\par
+\sectiontitle{Experience}
+\expinstapageQ
+\expnerdwalletQ
+\expstubhubQ
+\expaenetworksQ
+\expadweekQ
+
+% ================== Page Education ==================
+\vspace{6pt}\par
+\sectiontitle{Education}
+\education
+
+\end{document}

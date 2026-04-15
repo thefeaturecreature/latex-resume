@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bullets Editor</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/static/editor.css">
+</head>
+<body>
+
+  <div id="toolbar">
+    <div id="filters">
+      <div class="filter-row">
+        <span class="filter-label">Company</span>
+        <div id="company-chips" class="chips"></div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Title</span>
+        <div id="title-chips" class="chips">
+          <label class="chip radio-chip active"><input type="radio" name="title" value="" checked> All</label>
+          <label class="chip radio-chip"><input type="radio" name="title" value="pm"> PM</label>
+          <label class="chip radio-chip"><input type="radio" name="title" value="pmm"> PMM</label>
+        </div>
+        <span class="filter-divider">|</span>
+        <div id="field-filters" class="chips">
+          <span class="field-filter-item">PM Exp<button class="tristate" data-field="pm_exp" data-state="">—</button></span>
+          <span class="field-filter-item">PM Prof<button class="tristate" data-field="pm_prof" data-state="">—</button></span>
+          <span class="field-filter-item">PMM Exp<button class="tristate" data-field="pmm_exp" data-state="">—</button></span>
+          <span class="field-filter-item">PMM Prof<button class="tristate" data-field="pmm_prof" data-state="">—</button></span>
+          <span class="field-filter-item">PM Tag<button class="tristate" data-field="pm_tag" data-state="">—</button></span>
+          <span class="field-filter-item">PMM Tag<button class="tristate" data-field="pmm_tag" data-state="">—</button></span>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Tags</span>
+        <div id="tag-filter-chips" class="chips"></div>
+      </div>
+    </div>
+    <div id="toolbar-right">
+      <span id="count-label">Loading…</span>
+      <button id="btn-view-cards" class="view-btn">Cards</button>
+      <button id="btn-view-list" class="view-btn active">List</button>
+      <button id="btn-save-all">Save All</button>
+      <button id="btn-add">+ Add Bullet</button>
+    </div>
+  </div>
+
+  <div id="cards-container"></div>
+
+  <div id="tag-picker" class="hidden"></div>
+  <div id="company-picker" class="hidden"></div>
+
+  <div id="edit-modal" class="hidden">
+    <div id="modal-body"></div>
+  </div>
+
+  <script src="/static/editor.js"></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+RESUME_OWNER_NAME="Alex Rivera"
+RESUME_OWNER_TITLE="Product Manager"

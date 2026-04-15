@@ -1,0 +1,47 @@
+\begin{luacode}
+  local function load(path)
+    local f = kpse.find_file(path)
+    if f then
+      local ok, err = pcall(dofile, f)
+      if not ok then tex.print('ERROR loading ' .. path .. ': ' .. tostring(err)) end
+    else
+      tex.print('ERROR: ' .. path .. ' not found')
+    end
+  end
+  load('../includes/proficiencies.lua')
+  load('../data/companies.lua')
+\end{luacode}
+
+\begin{luacode}
+  function renderBullets(bullets, ids)
+    for id in ids:gmatch("%d+") do
+      local i = tonumber(id)
+      if bullets[i] then
+        tex.print("\\item " .. bullets[i])
+      end
+    end
+  end
+
+  function renderItems(items, ids)
+    for id in ids:gmatch("%d+") do
+      local i = tonumber(id)
+      if items[i] then
+        local company = items[i].company
+        local detail = items[i].detail
+        if company ~= "" then
+          tex.print("\\citem{" .. company .. "}{" .. detail .. "}")
+        else
+          tex.print("\\item " .. detail)
+        end
+      end
+    end
+  end
+\end{luacode}
+
+\def\lv#1{\directlua{tex.print(#1)}}
+
+\begin{luacode}
+  function capfirst(s)
+    return s:sub(1,1):upper() .. s:sub(2)
+  end
+\end{luacode}

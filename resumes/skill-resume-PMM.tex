@@ -1,0 +1,57 @@
+% !TEX program = lualatex
+
+\documentclass[letterpaper]{article}
+\usepackage{luacode}
+\input {../includes/uselua}         % loads companies.lua + proficiencies.lua + render helpers
+\input {../includes/uselua-bullets} % loads bullets.lua + queries.lua
+\input {../includes/uselua-bullets-pmm} % loads pmm/proficiencies.lua + PMM block commands
+
+% ================== Style ==================
+\usepackage[utf8]{}
+\usepackage[top=0.5in, bottom=0.5in, left=0.75in, right=0.75in]{geometry}
+\raggedright
+\raggedbottom
+\pagestyle{empty}
+
+\input {../includes/styles} % load default styles and formatting
+
+% ================== Load Blocks ==================
+\input {../includes/education} % load education block
+
+% ================== Document ==================
+\begin{document}
+\fontsize{10pt}{13pt}\selectfont
+
+% ================== Page Header ==================
+\input {../includes/header}
+
+% ================== Page Proficiencies ==================
+\vspace{2pt}\par
+\sectiontitle{Proficiencies}
+\vspace{2pt}\par
+\propmmPositioningQ[1,2,3,4]
+\propmmGtmQ[1,2,3,4,5]
+\propmmResearchQ[1,2,3]
+\propmmEnablementQ[1,2]
+\newpage % =============== Page Break ===============
+\propmmLifecycleQ[1,2,3,4]
+\propmmContentQ[1,2,3]
+\propmmDemandQ[1,2,3,4]
+\propmmAiQ[1,2,3,4]
+
+% ================== Page Experience ==================
+\vspace{2pt}\par
+\sectiontitle{Experience}
+\expinstapagePMMQ
+\expnerdwalletPMMQ
+\expstubhubPMMQ
+\expaenetworksPMMQ
+\expadweekPMMQ
+\expprometeusPMMQ
+
+% ================== Page Education ==================
+\vspace{6pt}\par
+\sectiontitle{Education}
+\education
+
+\end{document}

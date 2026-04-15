@@ -1,0 +1,49 @@
+% !TEX program = lualatex
+\documentclass[letterpaper]{article}
+\usepackage{luacode}
+\input {../includes/uselua}
+\input {../includes/uselua-bullets}
+
+% ================== Style ==================
+\usepackage[utf8]{}
+\usepackage[margin=.75in]{geometry}
+\raggedright
+\raggedbottom
+\pagestyle{empty}
+
+% ================== Override styles ==================
+\newcommand{\desc}[1]{\vspace{4pt}\par
+    \textit{\textbf{%
+        \directlua{tex.print(capfirst("#1"))}
+    }}%
+  \vspace{6pt}\par}
+
+\input {../includes/styles} % load default styles and formatting
+
+% ================== Load Blocks ==================
+\input {../includes/education} % load education block
+
+% ================== Document ==================
+\begin{document}
+\fontsize{10pt}{13pt}\selectfont
+
+% ================== Page Header ==================
+\input {../includes/header}
+Technical background, UX design experience, and storytelling expertise combined to discover user needs and unlock new growth opportunities for SaaS, AI/ML, content, and multi-sided marketplaces.
+
+% ================== Page Experience ==================
+\vspace{6pt}\par
+\sectiontitle{Experience}
+\expinstapageQ[1,2,3,4,5,6,7]
+\expnerdwalletQ[1,2,3,4,5]
+\newpage
+\expstubhubQ[1,2,3,4]
+\expaenetworksQ[1,2,3]
+\expadweekQ[1,2,3,4]
+
+% ================== Page Education ==================
+\vspace{8pt}\par
+\sectiontitle{Education}
+\education
+
+\end{document}

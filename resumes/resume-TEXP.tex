@@ -1,0 +1,60 @@
+% !TEX program = lualatex
+\documentclass[letterpaper]{article}
+\usepackage{luacode}
+\input {../includes/uselua}
+\input {../includes/uselua-bullets}
+
+% ================== Style ==================
+\usepackage[utf8]{}
+\usepackage[margin=.75in]{geometry}
+\raggedright
+\raggedbottom
+\pagestyle{empty}
+
+% ================== Override styles ==================
+\newcommand{\desc}[1]{\vspace{4pt}\par
+    \textit{\textbf{%
+        \directlua{tex.print(capfirst("#1"))}
+    }}%
+  \vspace{6pt}\par}
+
+\input {../includes/styles} % load default styles and formatting
+
+% ================== Load Blocks ==================
+\input {../includes/education} % load education block
+
+% ================== Document ==================
+\begin{document}
+\fontsize{10pt}{13pt}\selectfont
+
+% ================== Page Header ==================
+\input {../includes/header}
+
+Technical product manager with roots in frontend development, data analysis, and UX, multiplying productivity with agentic AI workflows to elevate every stage of the PM process: from writing queries and building prototypes to shipping production features.
+
+% ================== Page Experience ==================
+\vspace{8pt}\par
+\sectiontitle{Experience}
+\expinstapageQ[3,4,5,6,7]
+\expnerdwalletQ[1,2,4]
+\expstubhubQ[2,3,4]
+\pagebreak
+\expaenetworksQ[1,2]
+
+% ================== Page Proficiencies ==================
+\vspace{6pt}\par
+\sectiontitle{Proficiencies}
+\vspace{2pt}\par
+\propmAiQ*[6,7,8]
+\propmPrototypingQ*[5,6,7,8]
+\propmAnalyticsQ*[7,8,9,10]
+\propmDesignSystemsQ*[1,2]
+
+% ================== Page Education ==================
+\vspace{8pt}\par
+\sectiontitle{Education}
+\education
+
+
+\end{document}
+

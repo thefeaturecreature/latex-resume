@@ -1,0 +1,13 @@
+data/
+.idea/*
+.claude/*
+.DS_Store
+*.log
+*.aux
+*.gz
+*.docx
+*.pdf
+*esume*-*.md
+__pycache__/
+*.pyc
+!documentation/*.pdf

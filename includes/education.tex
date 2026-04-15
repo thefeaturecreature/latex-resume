@@ -1,0 +1,10 @@
+\begin{luacode}
+  local f = kpse.find_file('../data/education.lua')
+  if f then dofile(f) else tex.print('ERROR: education.lua not found') end
+\end{luacode}
+
+\def\education{%
+  \school{\lv{education.school}}
+  \location{\lv{education.location}}
+  \degree{\lv{education.degree}}
+}

@@ -1,0 +1,53 @@
+% !TEX program = lualatex
+
+\documentclass[letterpaper]{article}
+\usepackage{luacode}
+\input {../includes/uselua}
+\input {../includes/uselua-bullets}
+
+% ================== Style ==================
+\usepackage[utf8]{}
+\usepackage[margin=0.75in]{geometry}
+\raggedright
+\raggedbottom
+\pagestyle{empty}
+
+\input {../includes/styles} % load default styles and formatting
+
+% ================== Load Blocks ==================
+\input {../includes/education} % load education block
+
+% ================== Document ==================
+\begin{document}
+\fontsize{10pt}{13pt}\selectfont
+
+% ================== Page Header ==================
+\input {../includes/header}
+
+% ================== Page Proficiencies ==================
+\vspace{4pt}\par
+\sectiontitle{Proficiencies}
+\vspace{2pt}\par
+\propmApiQ[1,2]
+\propmExperimentQ[2,4,5]
+\propmPrototypingQ[4,1,2,3]
+\propmAnalyticsQ[1,2,4,6]
+\newpage % =============== Page Break ===============
+\propmAiQ[1,2,4]
+\propmMlQ[1,2,3]
+
+% ================== Page Experience ==================
+\vspace{4pt}\par
+\sectiontitle{Experience}
+\expinstapageQ
+\expnerdwalletQ
+\expstubhubQ
+\expaenetworksQ
+\expadweekQ
+
+% ================== Page Education ==================
+\vspace{8pt}\par
+\sectiontitle{Education}
+\education
+
+\end{document}

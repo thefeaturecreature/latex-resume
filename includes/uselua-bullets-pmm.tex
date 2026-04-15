@@ -1,0 +1,64 @@
+% PMM bullet store loader and block commands.
+% Requires uselua.tex first (loads experiences + proficiencies, defines renderBullets/renderItems).
+% Also requires uselua-bullets.tex first (loads bullets.lua + queries.lua).
+\begin{luacode}
+  local pmmProfPath = kpse.find_file('../includes/pmm/proficiencies.lua')
+  if pmmProfPath then
+    local ok, err = pcall(dofile, pmmProfPath)
+    if not ok then tex.print('ERROR loading pmm/proficiencies.lua: ' .. tostring(err)) end
+  else
+    tex.print('ERROR: pmm/proficiencies.lua not found')
+  end
+\end{luacode}
+
+% PMM proficiency block.
+% Pulls name/description from pmm_proficiencies, bullets via getPMMItemsForSkill().
+% Usage: \profblockPMMQ{SkillKey}{1,2,3}
+\newcommand{\profblockPMMQ}[2]{%
+  \proficiency{\directlua{tex.print(pmm_proficiencies["#1"].name)}}%
+  \profdesc{\directlua{tex.print(pmm_proficiencies["#1"].description)}}%
+  \bullets{\directlua{renderItems(getPMMItemsForSkill("#1"), "#2")}}%
+}
+
+% PMM experience block.
+% Renders title bolded, followed by (pmm_title) in normal weight if pmm_title is set.
+% Uses pmm_body if present, falls back to body.
+% Usage: \expblockPMMQ[1,2,3]{companykey}
+\newcommand{\expblockPMMQ}[2][]{%
+  \jobtitle{\directlua{tex.print(experiences["#2"].title)}}%
+  \directlua{
+    local e = experiences["#2"]
+    if e.pmm_title then
+      tex.print("\\ (\\mdseries " .. e.pmm_title .. ")")
+    end
+  }%
+  \dates{\directlua{tex.print(experiences["#2"].dateStart)}}{\directlua{tex.print(experiences["#2"].dateEnd)}}%
+  \company{\directlua{tex.print(experiences["#2"].company)}} \location{\directlua{tex.print(experiences["#2"].location)}} \desc{\directlua{tex.print(experiences["#2"].desc)}}%
+  \body{\directlua{
+    local e = experiences["#2"]
+    tex.print(e.pmm_body or e.body)
+  }}%
+  \ifx&#1&\else\bullets{\directlua{renderBullets(getPMMBulletsForCompany("#2"), "#1")}}\fi%
+}
+
+% Per-company PMM experience shorthands.
+\newcommand{\expinstapagePMMQ}[1][]{\expblockPMMQ[#1]{instapage}}
+\newcommand{\expnerdwalletPMMQ}[1][]{\expblockPMMQ[#1]{nerdwallet}}
+\newcommand{\expstubhubPMMQ}[1][]{\expblockPMMQ[#1]{stubhub}}
+\newcommand{\expaenetworksPMMQ}[1][]{\expblockPMMQ[#1]{aenetworks}}
+\newcommand{\expadweekPMMQ}[1][]{\expblockPMMQ[#1]{adweek}}
+\newcommand{\expprometeusPMMQ}[1][]{\expblockPMMQ[#1]{prometheus}}
+\newcommand{\expmediabistroPMMQ}[1][]{\expblockPMMQ[#1]{mediabistro}}
+
+% Per-skill PMM proficiency shorthands.
+\newcommand{\propmmPositioningQ}[1][1,2,3,4,5,6]{\profblockPMMQ{Positioning}{#1}}
+\newcommand{\propmmGtmQ}[1][1,2,3,4,5,6]{\profblockPMMQ{GTM}{#1}}
+\newcommand{\propmmResearchQ}[1][1,2,3,4,5,6]{\profblockPMMQ{Research}{#1}}
+\newcommand{\propmmEnablementQ}[1][1,2,3,4,5,6]{\profblockPMMQ{Enablement}{#1}}
+\newcommand{\propmmLifecycleQ}[1][1,2,3,4,5,6]{\profblockPMMQ{Lifecycle}{#1}}
+\newcommand{\propmmAnalyticsQ}[1][1,2,3,4,5,6]{\profblockPMMQ{Analytics}{#1}}
+\newcommand{\propmmContentQ}[1][1,2,3,4,5,6]{\profblockPMMQ{Content}{#1}}
+\newcommand{\propmmDemandQ}[1][1,2,3,4,5,6]{\profblockPMMQ{Demand}{#1}}
+\newcommand{\propmmTechnicalQ}[1][1,2,3,4,5,6]{\profblockPMMQ{TechnicalPMM}{#1}}
+\newcommand{\propmmAiQ}[1][1,2,3,4,5,6]{\profblockPMMQ{AI}{#1}}
+\newcommand{\propmmPartnerQ}[1][1,2,3,4,5,6]{\profblockPMMQ{Partner}{#1}}

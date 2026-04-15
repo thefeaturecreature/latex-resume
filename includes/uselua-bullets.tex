@@ -1,0 +1,67 @@
+% Load unified bullet store and query helpers.
+% Requires uselua.tex to be loaded first (data.lua provides company/skill metadata).
+\begin{luacode}
+  local bulletsPath = kpse.find_file('../data/bullets.lua')
+  if bulletsPath then
+    local ok, err = pcall(dofile, bulletsPath)
+    if not ok then tex.print('ERROR loading bullets.lua: ' .. tostring(err)) end
+  else
+    tex.print('ERROR: bullets.lua not found')
+  end
+
+  local queriesPath = kpse.find_file('../includes/queries.lua')
+  if queriesPath then
+    local ok, err = pcall(dofile, queriesPath)
+    if not ok then tex.print('ERROR loading queries.lua: ' .. tostring(err)) end
+  else
+    tex.print('ERROR: queries.lua not found')
+  end
+\end{luacode}
+
+% Proficiency block backed by getItemsForSkill().
+% Metadata (name, description) still sourced from data.lua proficiencies table.
+% Usage: \profblockQ{SkillKey}{1,2,3}        — with description
+%        \profblockQ*{SkillKey}{1,2,3}       — without description
+\NewDocumentCommand{\profblockQ}{s m m}{%
+  \proficiency{\directlua{tex.print(proficiencies["#2"].name)}}%
+  \IfBooleanF{#1}{\profdesc{\directlua{tex.print(proficiencies["#2"].description)}}}%
+  \bullets{\directlua{renderItems(getItemsForSkill("#2"), "#3")}}%
+}
+
+% Experience block backed by getBulletsForCompany().
+% Metadata (title, dates, company, location, desc, body) still sourced from data.lua experiences table.
+% Optional arg: comma-separated bullet indices to render. Omit to show no bullets (proficiency-resume default).
+% Usage: \expblockQ[1,2,3]{companykey}
+\newcommand{\expblockQ}[2][]{%
+  \jobtitle{\directlua{tex.print(experiences["#2"].title)}}%
+  \dates{\directlua{tex.print(experiences["#2"].dateStart)}}{\directlua{tex.print(experiences["#2"].dateEnd)}}%
+  \company{\directlua{tex.print(experiences["#2"].company)}} \location{\directlua{tex.print(experiences["#2"].location)}} \desc{\directlua{tex.print(experiences["#2"].desc)}}%
+  \body{\directlua{tex.print(experiences["#2"].body)}}%
+  \ifx&#1&\else\bullets{\directlua{renderBullets(getBulletsForCompany("#2"), "#1")}}\fi%
+}
+
+% Per-company experience shorthands using the new query-backed block.
+\newcommand{\expinstapageQ}[1][]{\expblockQ[#1]{instapage}}
+\newcommand{\expnerdwalletQ}[1][]{\expblockQ[#1]{nerdwallet}}
+\newcommand{\expstubhubQ}[1][]{\expblockQ[#1]{stubhub}}
+\newcommand{\expaenetworksQ}[1][]{\expblockQ[#1]{aenetworks}}
+\newcommand{\expadweekQ}[1][]{\expblockQ[#1]{adweek}}
+\newcommand{\expprometheusQ}[1][]{\expblockQ[#1]{prometheus}}
+\newcommand{\expmediabistroQ}[1][]{\expblockQ[#1]{mediabistro}}
+
+% Per-skill proficiency shorthands.
+% Usage: \propmAiQ[1,2,3]    — with description
+%        \propmAiQ*[1,2,3]   — without description
+\NewDocumentCommand{\propmVoCQ}         {s O{1,2,3,4}}     {\IfBooleanTF{#1}{\profblockQ*{VoC}{#2}}         {\profblockQ{VoC}{#2}}}
+\NewDocumentCommand{\propmAnalyticsQ}   {s O{1,2,3,4}}     {\IfBooleanTF{#1}{\profblockQ*{Analytics}{#2}}   {\profblockQ{Analytics}{#2}}}
+\NewDocumentCommand{\propmExperimentQ}  {s O{1,2,3,4,5,6}} {\IfBooleanTF{#1}{\profblockQ*{Experimentation}{#2}}{\profblockQ{Experimentation}{#2}}}
+\NewDocumentCommand{\propmPrototypingQ} {s O{1,2,3,4}}     {\IfBooleanTF{#1}{\profblockQ*{Prototyping}{#2}}  {\profblockQ{Prototyping}{#2}}}
+\NewDocumentCommand{\propmApiQ}         {s O{1,2}}         {\IfBooleanTF{#1}{\profblockQ*{API}{#2}}         {\profblockQ{API}{#2}}}
+\NewDocumentCommand{\propmAiQ}          {s O{1,2,3,4}}     {\IfBooleanTF{#1}{\profblockQ*{AI}{#2}}          {\profblockQ{AI}{#2}}}
+\NewDocumentCommand{\propmMlQ}          {s O{1,2,3}}       {\IfBooleanTF{#1}{\profblockQ*{ML}{#2}}          {\profblockQ{ML}{#2}}}
+\NewDocumentCommand{\propmRagQ}         {s O{1,2}}         {\IfBooleanTF{#1}{\profblockQ*{RAG}{#2}}         {\profblockQ{RAG}{#2}}}
+\NewDocumentCommand{\propmCmsQ}         {s O{1,2,3,4,5,6}} {\IfBooleanTF{#1}{\profblockQ*{CMS}{#2}}         {\profblockQ{CMS}{#2}}}
+\NewDocumentCommand{\propmSeoQ}         {s O{1,2,3,4,5,6}} {\IfBooleanTF{#1}{\profblockQ*{SEO}{#2}}         {\profblockQ{SEO}{#2}}}
+\NewDocumentCommand{\propmGrowthQ}      {s O{1,2,3,4,5,6}} {\IfBooleanTF{#1}{\profblockQ*{Growth}{#2}}      {\profblockQ{Growth}{#2}}}
+\NewDocumentCommand{\propmAdtechQ}      {s O{1,2,3,4,5,6}} {\IfBooleanTF{#1}{\profblockQ*{AdTech}{#2}}      {\profblockQ{AdTech}{#2}}}
+\NewDocumentCommand{\propmDesignSystemsQ}{s O{1}}          {\IfBooleanTF{#1}{\profblockQ*{DesignSystems}{#2}}{\profblockQ{DesignSystems}{#2}}}
