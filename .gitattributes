@@ -1,3 +1,6 @@
 *.py  linguist-detectable=false
+*.js  linguist-detectable=false
+*.css linguist-detectable=false
+*.html linguist-detectable=false
 *.lua linguist-detectable=true
 *.tex linguist-detectable=true
