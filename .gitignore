@@ -11,4 +11,4 @@ data/
 __pycache__/
 *.pyc
 !documentation/*.pdf
-.puppet-chrome
+.mcp
