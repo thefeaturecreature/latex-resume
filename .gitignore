@@ -1,6 +1,6 @@
 data/
-.idea/*
 .claude/*
+.claude-assistant
 .DS_Store
 *.log
 *.aux
@@ -11,3 +11,4 @@ data/
 __pycache__/
 *.pyc
 !documentation/*.pdf
+.puppet-chrome
