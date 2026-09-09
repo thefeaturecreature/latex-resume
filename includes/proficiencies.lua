@@ -1,5 +1,5 @@
 -- Skill metadata for proficiency blocks.
--- Bullet content lives in bullets.lua — not here.
+-- Bullet content lives in bullets.lua, not here.
 
 proficiencies = {
   AI = {
